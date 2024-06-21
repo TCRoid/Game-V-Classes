@@ -99,8 +99,8 @@ public:
     uint32_t m_WeaponBlockingDelay; //0x1970
 
     //0x1974
-    bool m_forcePedHasNoMassInImpacts    : 1;
-    bool m_disableHighFallInstantDeath    : 1;
+    bool m_forcePedHasNoMassInImpacts : 1;
+    bool m_disableHighFallInstantDeath : 1;
 
     char pad_1975[79]; //0x1975
 }; //Size: 0x19C4
@@ -109,8 +109,15 @@ public:
 class CPedConfigFlags
 {
 public:
-    uint32_t m_Flags; //0x0000
+    //0x0000
+    uint32_t nCantBeKnockedOffVehicle : 2;          // 0 = Default(harder for mission peds), 1 = Never, 2 = Easy, 3 = Hard
+    uint32_t nPedLegIkMode : 2;                     // Enable the leg ik on a non player
+    uint32_t nPedGestureMode : 2;                   // What is the gesture mode normal, obey "allow" or "blocking" tags in anims
+    uint32_t m_iPassengerIndexToUseInAGroup : 5;    // If this ped is in a group, this is the seat they will use when entering vehicles
+
     float fClimbRateOverride; //0x0004
+
+    // ePedConfigFlagsBitSet
     uint32_t m_Flags_0; //0x0008
     uint32_t m_Flags_1; //0x000C
     uint32_t m_Flags_2; //0x0010
@@ -132,16 +139,37 @@ public:
 class CPedResetFlags
 {
 public:
+    // if ped is getting pushed out of the way by the player pushing a door 
     uint8_t m_nKnockedByDoor; //0x0000
+
+    // use the ground position to snap the height of the ped to the correct distance above the ground (don't want to do this all the time)
     uint8_t m_nSetEntityZFromGround; //0x0001
+
     char pad_0002[2]; //0x0002
-    uint32_t m_Flags; //0x0004
+
+    //0x0004
+    uint32_t m_nDontAcceptIKLookAts : 2;
+    uint32_t m_nDontAcceptCodeIKLookAts : 2;
+    uint32_t m_nHasJustLeftVehicle : 4;
+    uint32_t m_nIsInCover : 2;
+
+    // rotation modifier, used to allow tasks to override the amount of rotation applied from anims, reset each frame to 1
     float m_fAnimRotationModifier; //0x0008
+
+    // root correction modifier, how much of the root correction is applied to the ped, reset to 1 each frame
     float m_fRootCorrectionModifer; //0x000C
+
+    // Overall control of speed at which movement anims play, default is 1.0f
     float m_fMoveAnimRate; //0x0010
+
+    // Modifier set each frame by script, sets a distance a ped should be between seats to be applied when in a vehicle
     float m_fScriptedScaleBetweenSeatsDefaultDistance; //0x0014
+
+    //EntityZ ground height. Used to prevent snapping z unless we are close to this height.
     float m_fEntityZFromGroundZHeight; //0x0018
     float m_fEntityZFromGroundZThreshold; //0x001C
+
+    // ePedResetFlagsBitSet uint32_t
     char pad_0020[48]; //0x0020
 }; //Size: 0x0050
 

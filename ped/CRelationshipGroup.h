@@ -27,16 +27,12 @@ public:
     };
     uint8_t m_relations[300]; //0x0018
 
-    uint8_t m_relationTypeRef[7]; //0x0144
+    uint8_t m_relationTypeRef[8]; //0x0144
 
-    uint16_t m_index; //0x014B
+    uint16_t m_index; //0x014C
 
-    // Used for mission type relationship groups to see if they can be cleaned up post script cleanup
-    uint8_t m_bCanBeCleanedUp; //0x014D
-
-    // Used to determine if a victim should be excluded from causing crimes to be reported
-    uint8_t m_bAffectsWantedLevel; //0x014E
-
-    // Used to tell the mini map to blip all peds in this relationship group
-    uint8_t m_bBlipPeds; //0x014F
+    //0x014E
+    uint8_t m_bCanBeCleanedUp : 1;      // Used for mission type relationship groups to see if they can be cleaned up post script cleanup
+    uint8_t m_bAffectsWantedLevel : 1;  // Used to determine if a victim should be excluded from causing crimes to be reported
+    uint8_t m_bBlipPeds : 1;            // Used to tell the mini map to blip all peds in this relationship group
 }; //Size: 0x0150
