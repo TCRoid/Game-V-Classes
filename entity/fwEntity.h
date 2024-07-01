@@ -13,7 +13,7 @@ public:
 
     uint32_t m_baseFlags; //0x002C
 
-    void *m_CurrentPhysicsInst; //0x0030
+    class phInst *m_CurrentPhysicsInst; //0x0030
 
     uint16_t m_phaseVisibilityMask; //0x0038
     uint16_t m_visibilityType; //0x003A
