@@ -1,0 +1,3 @@
+class CWeaponInfo : public CItemInfo
+{
+};

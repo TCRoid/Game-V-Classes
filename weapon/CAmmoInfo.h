@@ -1,0 +1,3 @@
+class CAmmoInfo : public CItemInfo
+{
+};
