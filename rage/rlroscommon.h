@@ -69,7 +69,6 @@ public:
     //   Returns true if user has specified privilege.
     bool HasPrivilege(const rlRosPrivilegeId privilegeId) const;
 
-
 private:
     friend class rlRosClient;
 
@@ -89,6 +88,8 @@ private:
 
     class rlScAccountInfo m_RockstarAcct; // 0x0298
 
+    // char pad_042A[542]; // 0x042A
+
     atFixedBitSet<RLROS_NUM_PRIVILEGEID> m_Privileges;
 
     // Privilege infos for any privileges that aren't the default
@@ -96,10 +97,12 @@ private:
 
     // Our plaintext session key used for encryption/decryption,
     // as chosen by the server.
-    SessionKey m_SessionKey;
+    uint8_t m_SessionKey[32];    // 0x0648
+    uint32_t m_SessionKeyLength; // 0x0668
 
     // Our plaintext cloud key
-    CloudKey m_CloudKey;
+    uint8_t m_CloudKey[32];    // 0x066C
+    uint32_t m_CloudKeyLength; // 0x068C
 };
 
 
